@@ -1,6 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { Role } from './role.enum';
-import { Major, MBTI, Position } from './users.enum';
+import { Role, Major, MBTI, Position } from './users.enum';
 
 @Entity()
 export class User {
