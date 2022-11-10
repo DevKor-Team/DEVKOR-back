@@ -1,31 +1,22 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { Role, Major, MBTI, Position } from './users.enum';
+import { Column, Entity, PrimaryGeneratedColumn, Timestamp } from 'typeorm';
+import { Mbti, Position, Role } from './users.enum';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: false })
   name: string;
 
-  @Column({ type: 'enum', enum: Role, default: Role.User })
-  role: Role;
+  @Column({ nullable: false })
+  major: string;
 
-  @Column({ type: 'enum', enum: Major, default: Major.CS })
-  major: Major;
-
-  @Column()
-  studentNo: string;
-
-  @Column()
+  @Column({ type: 'date', default: null })
   birthDay: Date;
 
   @Column()
   github: string;
-
-  @Column()
-  instagram: string;
 
   @Column()
   blog: string;
@@ -33,15 +24,27 @@ export class User {
   @Column()
   introduction: string;
 
-  @Column({ type: 'enum', enum: Position, default: Position.BE })
-  position: Position;
-
   @Column()
   hobby: string;
 
-  @Column({ type: 'enum', enum: MBTI, default: MBTI.ENFJ })
-  mbti: MBTI;
-
   @Column()
-  image: string;
+  imageUrl: string;
+
+  @Column({ type: 'enum', enum: Role, default: Role.User })
+  role: Role;
+
+  @Column({ type: 'enum', enum: Position, default: Position.Newbie })
+  position: Position;
+
+  @Column({ type: 'enum', enum: Mbti, default: null })
+  mbti: Mbti;
+
+  @Column({ type: 'timestamp' })
+  createdDate: Timestamp;
+
+  @Column({ type: 'timestamp' })
+  updatedDate: Timestamp;
+
+  @Column({ type: 'timestamp' })
+  deletedDate: Timestamp;
 }

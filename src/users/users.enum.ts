@@ -3,21 +3,15 @@ export enum Role {
   Admiun = 'admin',
 }
 
-export enum Major {
-  CS = 'cs', // 컴과
-  CYDF = 'cydf', // 사국
-  DIS = 'dis', // 국제
-  DG = 'dg', // 디조
-}
-
 export enum Position {
-  FE = 'fe',
-  BE = 'be',
-  Design = 'design',
+  Frontend = 'frontend',
+  Backend = 'backend',
+  Designer = 'designer',
   App = 'app',
+  Newbie = 'newbie',
 }
 
-export enum MBTI {
+export enum Mbti {
   INTJ = 'intj',
   INTP = 'intp',
   ENTJ = 'entj',
