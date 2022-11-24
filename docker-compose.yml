@@ -1,10 +1,18 @@
-version: '3'
+version: '3.1'
+
 services:
-  dev-db:
+  db:
     image: postgres
+    restart: always
     ports:
       - '5432:5432'
     environment:
       - POSTGRES_USER=devkor
       - POSTGRES_PASSWORD=devkor
       - POSTGRES_DB=devkor
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
