@@ -7,13 +7,16 @@ import {
 } from 'class-validator';
 import { Mbti, Position, Role } from '../users.enum';
 
-export class UpdateUsersDto {
+export class CreateUserDto {
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
+  name: string;
+
+  @IsString()
+  @IsNotEmpty()
   major: string;
 
   @IsDate()
-  @IsOptional()
   birthDay: Date;
 
   @IsString()
@@ -45,10 +48,12 @@ export class UpdateUsersDto {
   mbti: Mbti;
 }
 
-export interface UpdateUserParam {
-  major?: string;
+export interface CreateUserParam {
+  name: string;
 
-  birthDay?: Date;
+  major: string;
+
+  birthDay: Date;
 
   github?: string;
 
@@ -60,17 +65,9 @@ export interface UpdateUserParam {
 
   imageUrl?: string;
 
+  role: Role;
+
   position?: Position;
 
   mbti?: Mbti;
-}
-
-export class UpdateRoleDto {
-  @IsEnum(Role)
-  @IsNotEmpty()
-  role: Role;
-}
-
-export interface UpdateRoleParam {
-  role: Role;
 }
