@@ -10,6 +10,7 @@ services:
       - POSTGRES_USER=devkor
       - POSTGRES_PASSWORD=devkor
       - POSTGRES_DB=devkor
+      - TZ=Asia/Seoul
 
   adminer:
     image: adminer

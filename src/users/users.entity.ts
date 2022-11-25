@@ -1,33 +1,48 @@
-import { Column, Entity, PrimaryGeneratedColumn, Timestamp } from 'typeorm';
+import { time } from 'console';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  Timestamp,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Mbti, Position, Role } from './users.enum';
 
 @Entity()
-export class User {
+export class Users {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: false })
+  @Column({ unique: true })
   name: string;
 
-  @Column({ nullable: false })
+  @Column({ unique: true })
+  email: string;
+
+  @Column()
+  password: string;
+
+  @Column()
   major: string;
 
-  @Column({ type: 'date', default: null })
+  @Column({ type: 'date', nullable: true })
   birthDay: Date;
 
-  @Column()
+  @Column({ nullable: true })
   github: string;
 
-  @Column()
+  @Column({ nullable: true })
   blog: string;
 
-  @Column()
+  @Column({ nullable: true })
   introduction: string;
 
-  @Column()
+  @Column({ nullable: true })
   hobby: string;
 
-  @Column()
+  @Column({ nullable: true })
   imageUrl: string;
 
   @Column({ type: 'enum', enum: Role, default: Role.User })
@@ -39,12 +54,12 @@ export class User {
   @Column({ type: 'enum', enum: Mbti, default: null })
   mbti: Mbti;
 
-  @Column({ type: 'timestamp' })
-  createdDate: Timestamp;
+  @CreateDateColumn()
+  createdDate: Date;
 
-  @Column({ type: 'timestamp' })
-  updatedDate: Timestamp;
+  @UpdateDateColumn()
+  updatedDate: Date;
 
-  @Column({ type: 'timestamp' })
-  deletedDate: Timestamp;
+  @DeleteDateColumn()
+  deletedDate: Date;
 }

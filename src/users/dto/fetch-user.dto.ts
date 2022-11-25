@@ -2,28 +2,16 @@ import { IsEnum, IsOptional, IsString } from 'class-validator';
 import { Mbti, Position } from '../users.enum';
 
 export class FetchUserDto {
-  @IsOptional()
-  id: number;
-
-  @IsOptional()
-  @IsString()
-  name: string;
-
-  @IsOptional()
   @IsEnum(Position)
-  position: Position;
-
   @IsOptional()
-  @IsEnum(Mbti)
-  mbti: Mbti;
+  position: Position;
 }
 
-export class FetchUserParam {
-  id?: number;
-
-  name?: string;
-
+export interface FetchUserParam {
   position?: Position;
+}
 
-  mbti?: Mbti;
+export interface DuplicateCheckParam {
+  name?: string;
+  email?: string;
 }

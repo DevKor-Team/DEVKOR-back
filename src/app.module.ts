@@ -15,6 +15,7 @@ import { UsersModule } from './users/users.module';
         url: config.get('DB_URL'),
         synchronize: config.get('DB_SYNC') || false,
         autoLoadEntities: true,
+        timezone: 'Asia/Seoul',
       }),
       inject: [ConfigService],
     }),

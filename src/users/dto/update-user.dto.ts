@@ -1,6 +1,7 @@
 import {
   IsDate,
   IsEnum,
+  IsISO8601,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -12,7 +13,7 @@ export class UpdateUserDto {
   @IsOptional()
   major: string;
 
-  @IsDate()
+  @IsISO8601()
   @IsOptional()
   birthDay: Date;
 

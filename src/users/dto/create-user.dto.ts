@@ -5,7 +5,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { Mbti, Position, Role } from '../users.enum';
+import { Mbti, Position } from '../users.enum';
 
 export class CreateUserDto {
   @IsString()
@@ -14,9 +14,18 @@ export class CreateUserDto {
 
   @IsString()
   @IsNotEmpty()
+  email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  password: string;
+
+  @IsString()
+  @IsNotEmpty()
   major: string;
 
   @IsDate()
+  @IsOptional()
   birthDay: Date;
 
   @IsString()
@@ -51,9 +60,13 @@ export class CreateUserDto {
 export interface CreateUserParam {
   name: string;
 
+  email: string;
+
+  password: string;
+
   major: string;
 
-  birthDay: Date;
+  birthDay?: Date;
 
   github?: string;
 
@@ -64,8 +77,6 @@ export interface CreateUserParam {
   hobby?: string;
 
   imageUrl?: string;
-
-  role: Role;
 
   position?: Position;
 
