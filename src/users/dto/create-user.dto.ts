@@ -1,5 +1,6 @@
 import {
   IsDate,
+  IsDateString,
   IsEnum,
   IsNotEmpty,
   IsOptional,
@@ -24,7 +25,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   major: string;
 
-  @IsDate()
+  @IsDateString()
   @IsOptional()
   birthDay: Date;
 

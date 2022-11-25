@@ -1,6 +1,7 @@
 export enum Role {
   User = 'user',
-  Admiun = 'admin',
+  Admin = 'admin',
+  Unauthenticated = 'unauthenticated',
 }
 
 export enum Position {
