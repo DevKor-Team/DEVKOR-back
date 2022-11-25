@@ -17,8 +17,12 @@ export class UsersService {
     return this.usersRepository.find({ where: fetchUserParam });
   }
 
-  async fetchUser(userId: number): Promise<Users> {
+  async fetchUserById(userId: number): Promise<Users> {
     return this.usersRepository.findOne({ where: { id: userId } });
+  }
+
+  async fetchUserByEmail(email: string): Promise<Users> {
+    return this.usersRepository.findOne({ where: { email } });
   }
 
   async createUser(createUserDto: CreateUserParam) {

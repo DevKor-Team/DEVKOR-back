@@ -21,8 +21,8 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get(':userId')
-  async fetchUser(@Param('userId') userId: number) {
-    const user = await this.usersService.fetchUser(userId);
+  async fetchUserById(@Param('userId') userId: number) {
+    const user = await this.usersService.fetchUserById(userId);
     if (!user) {
       throw new NotFoundException();
     }
@@ -60,7 +60,7 @@ export class UsersController {
     @Param('userId') userId: number,
     @Body() updateUserDto: UpdateUserDto,
   ) {
-    const user = await this.usersService.fetchUser(userId);
+    const user = await this.usersService.fetchUserById(userId);
     if (!user) {
       throw new NotFoundException();
     }
@@ -77,7 +77,7 @@ export class UsersController {
     @Param('userId') userId: number,
     @Body() updateRoleDto: UpdateRoleDto,
   ) {
-    const user = await this.usersService.fetchUser(userId);
+    const user = await this.usersService.fetchUserById(userId);
     if (!user) {
       throw new NotFoundException();
     }
