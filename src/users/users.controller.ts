@@ -10,10 +10,15 @@ import {
   Patch,
   Post,
   Query,
+  Request,
+  UnauthorizedException,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { CreateUserDto } from './dto/create-user.dto';
 import { FetchUserDto } from './dto/fetch-user.dto';
 import { UpdateRoleDto, UpdateUserDto } from './dto/update-user.dto';
+import { Role } from './users.enum';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -72,11 +77,17 @@ export class UsersController {
     return { success: true, message: '유저 정보업데이트 성공' };
   }
 
-  @Patch(':userId/role')
+  @UseGuards(AuthGuard('jwt'))
+  @Patch(':userId/authenticate')
   async updateRole(
+    @Request() req,
     @Param('userId') userId: number,
     @Body() updateRoleDto: UpdateRoleDto,
   ) {
+    if (req.role !== Role.Admin) {
+      throw new UnauthorizedException();
+    }
+
     const user = await this.usersService.fetchUserById(userId);
     if (!user) {
       throw new NotFoundException();

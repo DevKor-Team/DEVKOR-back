@@ -8,8 +8,8 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthGuard } from '@nestjs/passport';
+import { Role } from 'src/users/users.enum';
 import { AuthService } from './auth.service';
-import { KakaoStrategy } from './strategy/kakao.strategy';
 @Controller('auth')
 export class AuthController {
   constructor(
