@@ -1,0 +1,30 @@
+// Create User
+{
+  "valid": [
+    {
+      "major": "컴퓨터학과",
+      "birthDay": "1997-06-03",
+      "github": "https://github.com/honghyeong1",
+      "blog": "https://5hongmin.tistory.com/1",
+      "introduction": "안녕하세요, 저는 이제는 디자인에 관심이 많은 홍석민입니다.",
+      "hobby": "Art",
+      "imageUrl": "https://dimg.donga.com/wps/NEWS/IMAGE/2021/04/21/106528707.1.jpg",
+      "position": "desinger",
+      "mbti": "enfj"
+    }
+  ],
+  "invalid": [
+    // Wrong enum
+    {
+      "major": "컴퓨터학과",
+      "birthDay": "1997-06-03",
+      "github": "https://github.com/honghyeong1",
+      "blog": "https://5hongmin.tistory.com/1",
+      "introduction": "안녕하세요, 저는 이제는 디자인에 관심이 많은 홍석민입니다.",
+      "hobby": "Art",
+      "imageUrl": "https://dimg.donga.com/wps/NEWS/IMAGE/2021/04/21/106528707.1.jpg",
+      "position": "desingerrr",
+      "mbti": "enfs"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 import {
   IsDate,
+  IsDateString,
   IsEnum,
   IsNotEmpty,
   IsOptional,
@@ -24,7 +25,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   major: string;
 
-  @IsDate()
+  @IsDateString()
   @IsOptional()
   birthDay: Date;
 
@@ -81,4 +82,19 @@ export interface CreateUserParam {
   position?: Position;
 
   mbti?: Mbti;
+}
+
+export class CreateOAuthDto {
+  @IsNotEmpty()
+  @IsString()
+  name: string;
+
+  @IsNotEmpty()
+  @IsString()
+  email: string;
+}
+
+export interface CreateOAuthParam {
+  name: string;
+  email: string;
 }

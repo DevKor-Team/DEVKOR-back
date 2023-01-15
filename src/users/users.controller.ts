@@ -10,10 +10,15 @@ import {
   Patch,
   Post,
   Query,
+  Request,
+  UnauthorizedException,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { CreateUserDto } from './dto/create-user.dto';
 import { FetchUserDto } from './dto/fetch-user.dto';
 import { UpdateRoleDto, UpdateUserDto } from './dto/update-user.dto';
+import { Role } from './users.enum';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -21,8 +26,8 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get(':userId')
-  async fetchUser(@Param('userId') userId: number) {
-    const user = await this.usersService.fetchUser(userId);
+  async fetchUserById(@Param('userId') userId: number) {
+    const user = await this.usersService.fetchUserById(userId);
     if (!user) {
       throw new NotFoundException();
     }
@@ -60,7 +65,7 @@ export class UsersController {
     @Param('userId') userId: number,
     @Body() updateUserDto: UpdateUserDto,
   ) {
-    const user = await this.usersService.fetchUser(userId);
+    const user = await this.usersService.fetchUserById(userId);
     if (!user) {
       throw new NotFoundException();
     }
@@ -70,29 +75,5 @@ export class UsersController {
     if (result.affected === 0) throw new BadRequestException();
 
     return { success: true, message: '유저 정보업데이트 성공' };
-  }
-
-  @Patch(':userId/role')
-  async updateRole(
-    @Param('userId') userId: number,
-    @Body() updateRoleDto: UpdateRoleDto,
-  ) {
-    const user = await this.usersService.fetchUser(userId);
-    if (!user) {
-      throw new NotFoundException();
-    }
-
-    return this.usersService.updateRole(userId, updateRoleDto);
-  }
-
-  @Delete(':userId')
-  async deleteUser(@Param('userId') userId: number) {
-    const { affected } = await this.usersService.deleteUser(userId);
-
-    if (affected === 0) {
-      throw new NotFoundException();
-    }
-
-    return { success: true, message: '회원 탈퇴 성공' };
   }
 }

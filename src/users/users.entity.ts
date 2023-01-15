@@ -1,11 +1,9 @@
-import { time } from 'console';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  Timestamp,
   UpdateDateColumn,
 } from 'typeorm';
 import { Mbti, Position, Role } from './users.enum';
@@ -21,10 +19,10 @@ export class Users {
   @Column({ unique: true })
   email: string;
 
-  @Column()
+  @Column({ nullable: true })
   password: string;
 
-  @Column()
+  @Column({ nullable: true })
   major: string;
 
   @Column({ type: 'date', nullable: true })
@@ -45,7 +43,7 @@ export class Users {
   @Column({ nullable: true })
   imageUrl: string;
 
-  @Column({ type: 'enum', enum: Role, default: Role.User })
+  @Column({ type: 'enum', enum: Role, default: Role.Unauthenticated })
   role: Role;
 
   @Column({ type: 'enum', enum: Position, default: Position.Newbie })

@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateUserParam } from './dto/create-user.dto';
+import { CreateOAuthParam, CreateUserParam } from './dto/create-user.dto';
 import { DuplicateCheckParam, FetchUserParam } from './dto/fetch-user.dto';
 import { UpdateRoleParam, UpdateUserParam } from './dto/update-user.dto';
 import { Users } from './users.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -17,12 +18,26 @@ export class UsersService {
     return this.usersRepository.find({ where: fetchUserParam });
   }
 
-  async fetchUser(userId: number): Promise<Users> {
+  async fetchUserById(userId: number): Promise<Users> {
     return this.usersRepository.findOne({ where: { id: userId } });
   }
 
+  async fetchUserByEmail(email: string): Promise<Users> {
+    return this.usersRepository.findOne({ where: { email } });
+  }
+
   async createUser(createUserDto: CreateUserParam) {
+    const saltOrRounds = 10;
+    const encryptedPassword = await bcrypt.hash(
+      createUserDto.password,
+      saltOrRounds,
+    );
+    createUserDto.password = encryptedPassword;
     return this.usersRepository.save(createUserDto);
+  }
+
+  async createOAuthUser(createOAuthDto: CreateOAuthParam) {
+    return this.usersRepository.save(createOAuthDto);
   }
 
   async updateUser(userId: number, updateUserDto: UpdateUserParam) {
