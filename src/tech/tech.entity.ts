@@ -1,4 +1,3 @@
-import { User } from 'aws-sdk/clients/budgets';
 import { Users } from 'src/users/users.entity';
 import {
   Column,
@@ -28,10 +27,10 @@ export class Tech {
   @Column()
   contents: string;
 
-  @Column()
+  @Column({ default: 0 })
   likes: number;
 
-  @Column()
+  @Column({ default: 0 })
   scraps: number;
 
   //   @Column()
@@ -39,7 +38,7 @@ export class Tech {
 
   @ManyToOne(() => Users, (user) => user.techPosts)
   @JoinColumn()
-  creator: User;
+  creator: Users;
 
   @CreateDateColumn()
   createdDate: Date;
