@@ -3,6 +3,8 @@ import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrpyt from 'bcrypt';
 import { KakaoStrategy } from './strategy/kakao.strategy';
+import { Role } from 'src/users/users.enum';
+import { UpdateRoleParam } from 'src/users/dto/update-user.dto';
 @Injectable()
 export class AuthService {
   constructor(
@@ -35,7 +37,6 @@ export class AuthService {
       KAKAO_REDIRECT_URI,
     );
 
-    // console.log(userInfo);
     const user = await this.userService.fetchUserByEmail(userInfo.email);
 
     if (!user) {
@@ -47,6 +48,21 @@ export class AuthService {
       return { result: 'unauthenticated' };
     }
 
-    return { result: 'success' };
+    if (user && (user.role === Role.Admin || user.role === Role.User)) {
+      const payload = { role: user.role, sub: user.id };
+
+      return { result: 'success', access_token: this.jwtService.sign(payload) };
+    }
+  }
+
+  async updateUserRole(userId: number, updateRoleParams: UpdateRoleParam) {
+    const user = await this.userService.fetchUserById(userId);
+
+    if (!user) {
+      return null;
+    }
+
+    await this.userService.updateRole(userId, updateRoleParams);
+    return userId;
   }
 }

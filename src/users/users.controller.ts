@@ -78,12 +78,14 @@ export class UsersController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Patch(':userId/authenticate')
+  @Patch(':userId/authentication')
   async updateRole(
     @Request() req,
     @Param('userId') userId: number,
     @Body() updateRoleDto: UpdateRoleDto,
   ) {
+    console.log(req.role);
+
     if (req.role !== Role.Admin) {
       throw new UnauthorizedException();
     }
