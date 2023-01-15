@@ -95,6 +95,9 @@ export class AuthController {
     return `User ${userId}의 Role이 ${updateRoleDto.role}으로 성공적으로 변경되었습니다.`;
   }
 
+  /**
+   * Admin :: 회원 탈퇴
+   */
   @UseGuards(AuthGuard('jwt'))
   @Delete('elimination/:userId')
   async deleteUser(@Request() req, @Param('userId') userId: number) {
