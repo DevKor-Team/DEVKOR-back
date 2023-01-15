@@ -83,3 +83,18 @@ export interface CreateUserParam {
 
   mbti?: Mbti;
 }
+
+export class CreateOAuthDto {
+  @IsNotEmpty()
+  @IsString()
+  name: string;
+
+  @IsNotEmpty()
+  @IsString()
+  email: string;
+}
+
+export interface CreateOAuthParam {
+  name: string;
+  email: string;
+}

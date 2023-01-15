@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateUserParam } from './dto/create-user.dto';
+import { CreateOAuthParam, CreateUserParam } from './dto/create-user.dto';
 import { DuplicateCheckParam, FetchUserParam } from './dto/fetch-user.dto';
 import { UpdateRoleParam, UpdateUserParam } from './dto/update-user.dto';
 import { Users } from './users.entity';
@@ -34,6 +34,10 @@ export class UsersService {
     );
     createUserDto.password = encryptedPassword;
     return this.usersRepository.save(createUserDto);
+  }
+
+  async createOAuthUser(createOAuthDto: CreateOAuthParam) {
+    return this.usersRepository.save(createOAuthDto);
   }
 
   async updateUser(userId: number, updateUserDto: UpdateUserParam) {
