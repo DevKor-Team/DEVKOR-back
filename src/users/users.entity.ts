@@ -1,8 +1,10 @@
+import { Tech } from 'src/tech/tech.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -60,4 +62,11 @@ export class Users {
 
   @DeleteDateColumn()
   deletedDate: Date;
+
+  /**
+   * Relations
+   */
+
+  @OneToMany(() => Tech, (tech) => tech.creator)
+  techPosts: Tech[];
 }
