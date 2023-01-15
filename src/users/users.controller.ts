@@ -76,36 +76,4 @@ export class UsersController {
 
     return { success: true, message: '유저 정보업데이트 성공' };
   }
-
-  @UseGuards(AuthGuard('jwt'))
-  @Patch(':userId/authentication')
-  async updateRole(
-    @Request() req,
-    @Param('userId') userId: number,
-    @Body() updateRoleDto: UpdateRoleDto,
-  ) {
-    console.log(req.role);
-
-    if (req.role !== Role.Admin) {
-      throw new UnauthorizedException();
-    }
-
-    const user = await this.usersService.fetchUserById(userId);
-    if (!user) {
-      throw new NotFoundException();
-    }
-
-    return this.usersService.updateRole(userId, updateRoleDto);
-  }
-
-  @Delete(':userId')
-  async deleteUser(@Param('userId') userId: number) {
-    const { affected } = await this.usersService.deleteUser(userId);
-
-    if (affected === 0) {
-      throw new NotFoundException();
-    }
-
-    return { success: true, message: '회원 탈퇴 성공' };
-  }
 }

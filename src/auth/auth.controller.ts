@@ -2,7 +2,9 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Delete,
   Get,
+  NotFoundException,
   Param,
   Patch,
   Post,
@@ -91,5 +93,21 @@ export class AuthController {
     }
 
     return `User ${userId}의 Role이 ${updateRoleDto.role}으로 성공적으로 변경되었습니다.`;
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Delete('elimination/:userId')
+  async deleteUser(@Request() req, @Param('userId') userId: number) {
+    const userInfo = req.user;
+    if (userInfo.role !== Role.Admin) {
+      throw new UnauthorizedException();
+    }
+    const { affected } = await this.authService.deleteUser(userId);
+
+    if (affected === 0) {
+      throw new NotFoundException();
+    }
+
+    return { success: true, message: '회원 탈퇴 성공' };
   }
 }

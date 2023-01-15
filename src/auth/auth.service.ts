@@ -65,4 +65,8 @@ export class AuthService {
     await this.userService.updateRole(userId, updateRoleParams);
     return userId;
   }
+
+  async deleteUser(userId: number) {
+    return await this.userService.deleteUser(userId);
+  }
 }
